@@ -1,0 +1,87 @@
+---
+- name: set jenkins CSRF Protection
+  jenkins_script:
+    url: "{{ jenkins_config_url }}"
+    user: "{{ jenkins_config_user }}"
+    password: "{{ jenkins_config_password }}"
+    script: "{{ lookup('template', 'templates/setCsrfProtection.groovy') }}"
+  when: jenkins_config_csrf_enabled in [true, false]
+
+- name: set jenkins global environment variables
+  jenkins_script:
+    url: "{{ jenkins_config_url }}"
+    user: "{{ jenkins_config_user }}"
+    password: "{{ jenkins_config_password }}"
+    script: "{{ lookup('template', 'templates/setGlobalEnvironmentVariables.groovy') }}"
+  when:
+    - jenkins_config_global_environment_variables is defined
+    - jenkins_config_global_environment_variables|length > 0
+
+- name: set jenkins pipeline speed/durability settings
+  jenkins_script:
+    url: "{{ jenkins_config_url }}"
+    user: "{{ jenkins_config_user }}"
+    password: "{{ jenkins_config_password }}"
+    script: "{{ lookup('template', 'templates/setPipelineDurabilitySettings.groovy') }}"
+  when: jenkins_config_pipeline_durability.upper() in
+    ['MAX_SURVIVABILITY', 'PERFORMANCE_OPTIMIZED', 'SURVIVABLE_NONATOMIC']
+
+- name: set jenkins simple theme css url
+  jenkins_script:
+    url: "{{ jenkins_config_url }}"
+    user: "{{ jenkins_config_user }}"
+    password: "{{ jenkins_config_password }}"
+    script: "{{ lookup('template', 'templates/setSimpleThemeCssUrl.groovy') }}"
+  when: 
+    - jenkins_config_simple_theme_css_url is defined 
+    - jenkins_config_simple_theme_css_url|length > 0
+
+- name: set jenkins url
+  jenkins_script:
+    url: "{{ jenkins_config_url }}"
+    user: "{{ jenkins_config_user }}"
+    password: "{{ jenkins_config_password }}"
+    script: "{{ lookup('template', 'templates/setJenkinsUrl.groovy') }}"
+  when: 
+    - jenkins_config_jenkins_url is defined 
+    - jenkins_config_jenkins_url|length > 0
+  
+- name: set jenkins system admin e-mail address
+  jenkins_script:
+    url: "{{ jenkins_config_url }}"
+    user: "{{ jenkins_config_user }}"
+    password: "{{ jenkins_config_password }}"
+    script: "{{ lookup('template', 'templates/setSystemAdminEmail.groovy') }}"
+  when: 
+    - jenkins_config_system_admin_email is defined
+    - jenkins_config_system_admin_email|length > 0
+
+- name: set jenkins global pipeline libraries
+  jenkins_script:
+    url: "{{ jenkins_config_url }}"
+    user: "{{ jenkins_config_user }}"
+    password: "{{ jenkins_config_password }}"
+    script: "{{ lookup('template', 'templates/setGlobalPipelineLibraries.groovy') }}"
+  when:
+    - jenkins_config_global_pipeline_libraries is defined
+    - jenkins_config_global_pipeline_libraries|length > 0
+  
+- name: set jenkins e-mail notification
+  jenkins_script:
+    url: "{{ jenkins_config_url }}"
+    user: "{{ jenkins_config_user }}"
+    password: "{{ jenkins_config_password }}"
+    script: "{{ lookup('template', 'templates/setEmailNotification.groovy') }}"
+  when:
+    - jenkins_config_email_notification.smtp_server is defined
+    - jenkins_config_email_notification.smtp_server|length > 0
+
+- name: set jenkins credentials
+  jenkins_script:
+    url: "{{ jenkins_config_url }}"
+    user: "{{ jenkins_config_user }}"
+    password: "{{ jenkins_config_password }}"
+    script: "{{ lookup('template', 'templates/setCredentials.groovy') }}"
+  when:
+    - jenkins_config_credentials is defined
+    - jenkins_config_credentials|length > 0

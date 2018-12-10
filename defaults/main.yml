@@ -1,0 +1,58 @@
+---
+jenkins_config_url: http://localhost:8080
+jenkins_config_user: admin
+jenkins_config_password: admin
+
+jenkins_config_csrf_enabled: null
+# Possible values:
+#   true
+#   false
+
+jenkins_config_global_environment_variables: []
+# jenkins_config_global_environment_variables:
+#   - name: FOO
+#     value: bar
+#   - name: TOKEN
+#     value: xxxyyyzzz
+
+jenkins_config_pipeline_durability: ''
+# Possible values:
+#   MAX_SURVIVABILITY
+#   PERFORMANCE_OPTIMIZED
+#   SURVIVABLE_NONATOMIC
+
+jenkins_config_simple_theme_css_url: ''
+
+jenkins_config_jenkins_url: ''
+jenkins_config_system_admin_email: ''
+
+jenkins_config_global_pipeline_libraries: []
+# jenkins_config_global_pipeline_libraries:
+#   - state: present
+#     name: global-pipeline-library
+#     default_version: master
+#     load_implicitly: false
+#     allow_default_version_override: true
+#     scm_git_path: 'git@github.com:example/global-pipeline-library.git'
+#     scm_credentials_id: jenkins-ssh
+
+jenkins_config_email_notification: null
+# jenkins_config_email_notification:
+#   smtp_server: smtp.gmail.com
+#   default_user_email_suffix: @example.com
+#   smtp_auth_username: example
+#   smtp_auth_password: "{{ secret_smtp_password }}"
+#   use_ssl: false
+#   smtp_port: 465
+#   reply_to_address: ''
+#   charset: UTF-8
+
+jenkins_config_credentials: []
+# jenkins_config_credentials:
+#   - state: present
+#     kind: ssh_username_with_private_key
+#     id: jenkins-ssh
+#     username: jenkins
+#     key_value: "{{ secret_key }}"
+#     key_passphrase: ''
+#     description: Key added from Ansible

@@ -1,0 +1,33 @@
+galaxy_info:
+  author: meierw
+  description: Manages various options/configurations in Jenkins.
+  company: Tieto Latvia
+
+  license: license (MIT)
+
+  min_ansible_version: 2.3
+
+  platforms:
+    - name: EL
+      versions:
+        - 7
+    - name: Fedora
+      versions:
+        - all
+    - name: Debian
+      versions:
+        - all
+    - name: Ubuntu
+      versions:
+        - all
+
+  galaxy_tags:
+    - jenkins
+    - config
+    - configuration
+    - setting
+    - settings
+    - option
+    - options
+
+dependencies: []
