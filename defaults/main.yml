@@ -28,8 +28,7 @@ jenkins_config_system_admin_email: ''
 
 jenkins_config_global_pipeline_libraries: []
 # jenkins_config_global_pipeline_libraries:
-#   - state: present
-#     name: global-pipeline-library
+#   - name: global-pipeline-library
 #     default_version: master
 #     load_implicitly: false
 #     allow_default_version_override: true
@@ -49,8 +48,7 @@ jenkins_config_email_notification: null
 
 jenkins_config_credentials: []
 # jenkins_config_credentials:
-#   - state: present
-#     kind: ssh_username_with_private_key
+#   - kind: ssh_username_with_private_key
 #     id: jenkins-ssh
 #     username: jenkins
 #     key_value: "{{ secret_key }}"
