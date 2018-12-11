@@ -23,7 +23,7 @@
     user: "{{ jenkins_config_user }}"
     password: "{{ jenkins_config_password }}"
     script: "{{ lookup('template', 'templates/setPipelineDurabilitySettings.groovy') }}"
-  when: jenkins_config_pipeline_durability.upper() in
+  when: jenkins_config_pipeline_durability|upper in
     ['MAX_SURVIVABILITY', 'PERFORMANCE_OPTIMIZED', 'SURVIVABLE_NONATOMIC']
 
 - name: set jenkins simple theme css url

@@ -7,7 +7,7 @@ List<Node> nodes = []
 DumbSlave slave
 {% for node in jenkins_config_nodes %}
     {% if node.name != '' and node.remote_root_directory != ''
-        and node.usage.upper() in ['NORMAL', 'EXCLUSIVE']
+        and node.usage|upper in ['NORMAL', 'EXCLUSIVE']
         and node.launch_method.type in ['via_ssh', 'via_command_on_master'] 
         and node.availability.type in ['always'] 
     %}
