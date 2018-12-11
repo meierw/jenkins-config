@@ -133,12 +133,21 @@ All fields should contain a non-null value (empty string or 0 depending on the t
 Set doesn't happen if list is empty.
 
 Mandatory fields (cannot be empty):
+* `kind`
 * `id`
-* `username`
-* `key_value`
 
-Supported `kind` values:
+Supported `kind` and extra fields needed for it:
+* `username_with_password`
+    * `id` : string
+    * `username` : string
+    * `password` : string
+    * `description` : string
 * `ssh_username_with_private_key`
+    * `id` : string
+    * `username` : string
+    * `private_key` : string
+    * `passphrase` : string
+    * `description` : string
 
 ---
 ```yaml
