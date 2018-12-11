@@ -15,6 +15,7 @@ Role Variables
 _IMPORTANT:_ When specified, most of these variables will overwrite previously set Jenkins options.
 Be mindful that you don't lose any setting, that you have previously set up.
 
+-------
 ```yaml
 jenkins_config_url: http://localhost:8080
 jenkins_config_user: admin
@@ -22,6 +23,7 @@ jenkins_config_password: admin
 ```
 The URL, username and password for authenticating with Jenkins. Will be used to execute `jenkins_script`.
 
+-------
 ```yaml
 jenkins_config_csrf_enabled: null
 ```
@@ -32,6 +34,7 @@ Supported values:
 * `true`
 * `false`
 
+-------
 ```yaml
 jenkins_config_global_environment_variables: []
 # jenkins_config_global_environment_variables:
@@ -43,6 +46,7 @@ jenkins_config_global_environment_variables: []
 Jenkins Global Environment variables to set in Jenkins settings.
 Set doesn't happen if list is empty.
 
+-------
 ```yaml
 jenkins_config_pipeline_durability: ''
 ```
@@ -54,6 +58,7 @@ Supported values:
 * `performance_optimized`
 * `survivable_nonatomic`
 
+-------
 ```yaml
 jenkins_config_simple_theme_css_url: ''
 # jenkins_config_simple_theme_css_url: https://cdn.rawgit.com/afonsof/jenkins-material-theme/gh-pages/dist/material-indigo.css
@@ -61,18 +66,21 @@ jenkins_config_simple_theme_css_url: ''
 URL of theme CSS to set in Jenkins Simple Theme settings.
 Set doesn't happen, if this value is empty.
 
+-------
 ```yaml
 jenkins_config_jenkins_url: ''
 ```
 Jenkins URL to set in Jenkins settings.
 Set doesn't happen, if this value is empty.
 
+-------
 ```yaml
 jenkins_config_system_admin_email: ''
 ```
 System Admin e-mail address to set in Jenkins settings.
 Set doesn't happen, if this value is empty.
 
+-------
 ```yaml
 jenkins_config_global_pipeline_libraries: []
 # jenkins_config_global_pipeline_libraries:
@@ -84,10 +92,15 @@ jenkins_config_global_pipeline_libraries: []
 #     scm_credentials_id: jenkins-ssh
 ```
 Global Pipeline Libraries to set in Jenkins settings.
-Each library field is mandatory (can not be null).
-Fields `name|scm_git_path|scm_credentials_id` can not be empty strings.
+All fields should contain a non-null value (empty string or 0 depending on the type).
 Set doesn't happen if list is empty.
 
+Mandatory fields (cannot be empty):
+* `name`
+* `scm_git_path`
+* `scm_credentials_id`
+
+-------
 ```yaml
 jenkins_config_email_notification: null
 # jenkins_config_email_notification:
@@ -101,9 +114,10 @@ jenkins_config_email_notification: null
 #   charset: UTF-8
 ```
 E-mail Notification values to set in Jenkins settings.
+All fields should contain a non-null value (empty string or 0 depending on the type).
 Set doesn't happen, if `jenkins_config_email_notification.smtp_server is undefined`.
-Set unneeded values as `''` to avoid undefined errors during execution.
 
+-------
 ```yaml
 jenkins_config_credentials: []
 # jenkins_config_credentials:
@@ -115,13 +129,18 @@ jenkins_config_credentials: []
 #     description: Key added from Ansible
 ```
 Credentials to set in the Global scope.
-Each credential field is mandatory (can not be null).
-Fields `id|username|key_value` can not be empty strings.
+All fields should contain a non-null value (empty string or 0 depending on the type).
 Set doesn't happen if list is empty.
+
+Mandatory fields (cannot be empty):
+* `id`
+* `username`
+* `key_value`
 
 Supported `kind` values:
 * `ssh_username_with_private_key`
 
+---
 ```yaml
 jenkins_config_nodes: []
 # jenkins_config_nodes:
@@ -143,10 +162,16 @@ jenkins_config_nodes: []
 #       type: always
 ```
 Nodes to set in Jenkins.
-Each node field is mandatory (can not be null).
-Fields `name|remote_root_directory|usage` can not be empty strings.
-Fields `launch_method|availability` must be defined with supported `type` and extra fields.
+All fields should contain a non-null value (empty string or 0 depending on the type).
 Set doesn't happen if list is empty.
+
+Mandatory fields (cannot be empty):
+* `name`
+* `num_of_executors`
+* `remote_root_directory`
+* `usage`
+* `launch_method`
+* `availability`
 
 Supported `usage` values:
 * `normal`
