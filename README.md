@@ -24,12 +24,13 @@ The URL, username and password for authenticating with Jenkins. Will be used to 
 
 ```yaml
 jenkins_config_csrf_enabled: null
-# Possible values:
-#   true
-#   false
 ```
 CSRF Protection state to set in Jenkins settings.
-Set doesn't happen, unless one of the possible values is specified.
+Set doesn't happen, unless one of the supported values is specified.
+
+Supported values:
+* `true`
+* `false`
 
 ```yaml
 jenkins_config_global_environment_variables: []
@@ -44,13 +45,14 @@ Set doesn't happen if list is empty.
 
 ```yaml
 jenkins_config_pipeline_durability: ''
-# Possible values:
-#   MAX_SURVIVABILITY
-#   PERFORMANCE_OPTIMIZED
-#   SURVIVABLE_NONATOMIC
 ```
 Pipeline Default Speed/Durability Level to set in Jenkins settings.
-Set doesn't happen, unless one of the possible values is specified.
+Set doesn't happen, unless one of the supported values is specified.
+
+Supported values:
+* `max_survivability`
+* `performance_optimized`
+* `survivable_nonatomic`
 
 ```yaml
 jenkins_config_simple_theme_css_url: ''
@@ -117,8 +119,56 @@ Each credential field is mandatory (can not be null).
 Fields `id|username|key_value` can not be empty strings.
 Set doesn't happen if list is empty.
 
-Supported credential `kind`:
+Supported `kind` values:
 * `ssh_username_with_private_key`
+
+```yaml
+jenkins_config_nodes: []
+# jenkins_config_nodes:
+#   - name: slave0
+#     description: Node added from Ansible
+#     num_of_executors: 2
+#     remote_root_directory: /var/lib/jenkins
+#     labels: labels separated by spaces
+#     usage: exclusive
+#     launch_method:
+#       type: via_ssh
+#       host: slave0.example.com
+#       port: 22
+#       credentials_id: jenkins-ssh
+#       verification_strategy:
+#         type: manually_trusted_key
+#         require_initial_manual_trust: true
+#     availability:
+#       type: always
+```
+Nodes to set in Jenkins.
+Each node field is mandatory (can not be null).
+Fields `name|remote_root_directory|usage` can not be empty strings.
+Fields `launch_method|availability` must be defined with supported `type` and extra fields.
+Set doesn't happen if list is empty.
+
+Supported `usage` values:
+* `normal`
+* `exclusive`
+
+Supported `launch_method` : `type` and extra fields needed for it:
+* `via_command`
+    * `command` : string
+* `via_ssh`
+    * `host` : string
+    * `port` : integer
+    * `credentials_id` : string
+    * Supported `verification_strategy` : `type` and extra fields needed for it:
+        * `known_hosts_file`
+        * `manually_provided_key`
+            * `ssh_key` : string
+        * `manually_trusted_key`
+            * `require_initial_manual_trust` : boolean
+        * `non_verifying`
+
+Supported `availability` : `type` and extra fields needed for it:
+* `always`
 
 Example Playbook
 ----------------

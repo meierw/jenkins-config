@@ -4,7 +4,7 @@ import hudson.security.csrf.DefaultCrumbIssuer
 def instance = Jenkins.get()
 
 instance.setCrumbIssuer(
-    {% if jenkins_config_csrf_enabled %}true{% else %}false{% endif %} ?
+    {% jenkins_config_csrf_enabled |bool|lower %} ?
     new DefaultCrumbIssuer(true) : null
 )
 instance.save()

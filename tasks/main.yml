@@ -85,3 +85,13 @@
   when:
     - jenkins_config_credentials is defined
     - jenkins_config_credentials|length > 0
+
+- name: set jenkins nodes
+  jenkins_script:
+    url: "{{ jenkins_config_url }}"
+    user: "{{ jenkins_config_user }}"
+    password: "{{ jenkins_config_password }}"
+    script: "{{ lookup('template', 'templates/setNodes.groovy') }}"
+  when:
+    - jenkins_config_nodes is defined
+    - jenkins_config_nodes|length > 0

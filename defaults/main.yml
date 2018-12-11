@@ -54,3 +54,21 @@ jenkins_config_credentials: []
 #     key_value: "{{ secret_key }}"
 #     key_passphrase: ''
 #     description: Key added from Ansible
+
+jenkins_config_nodes: []
+# jenkins_config_nodes:
+#   - name: slave0
+#     description: Node added from Ansible
+#     num_of_executors: 3
+#     remote_root_directory: /var/lib/jenkins
+#     labels: labels separated by spaces
+#     usage: exclusive
+#     launch_method:
+#       type: via_ssh
+#       host: slave0.example.com
+#       port: 22
+#       credentials_id: jenkins-ssh
+#       verification_strategy:
+#         type: non_verifying
+#     availability:
+#       type: always
