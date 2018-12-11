@@ -72,3 +72,7 @@ jenkins_config_nodes: []
 #         type: non_verifying
 #     availability:
 #       type: always
+#     environment_variables: # optional definition
+#       - name: FOO
+#         value: bar
+#     disable_deferred_wipeout: true # optional definition

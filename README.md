@@ -92,7 +92,7 @@ jenkins_config_global_pipeline_libraries: []
 #     scm_credentials_id: jenkins-ssh
 ```
 Global Pipeline Libraries to set in Jenkins settings.
-All fields should contain a non-null value (empty string or 0 depending on the type).
+All fields should contain a non-null value (empty / 0 / etc. depending on type).
 Set doesn't happen if list is empty.
 
 Mandatory fields (cannot be empty):
@@ -114,7 +114,7 @@ jenkins_config_email_notification: null
 #   charset: UTF-8
 ```
 E-mail Notification values to set in Jenkins settings.
-All fields should contain a non-null value (empty string or 0 depending on the type).
+All fields should contain a non-null value (empty / 0 / etc. depending on type).
 Set doesn't happen, if `jenkins_config_email_notification.smtp_server is undefined`.
 
 -------
@@ -129,7 +129,7 @@ jenkins_config_credentials: []
 #     description: Key added from Ansible
 ```
 Credentials to set in the Global scope.
-All fields should contain a non-null value (empty string or 0 depending on the type).
+All fields should contain a non-null value (empty / 0 / etc. depending on type).
 Set doesn't happen if list is empty.
 
 Mandatory fields (cannot be empty):
@@ -149,7 +149,7 @@ Supported `kind` and extra fields needed for it:
     * `passphrase` : string
     * `description` : string
 
----
+-------
 ```yaml
 jenkins_config_nodes: []
 # jenkins_config_nodes:
@@ -169,9 +169,13 @@ jenkins_config_nodes: []
 #         require_initial_manual_trust: true
 #     availability:
 #       type: always
+#     environment_variables: # optional definition
+#       - name: FOO
+#         value: bar
+#     disable_deferred_wipeout: true # optional definition
 ```
 Nodes to set in Jenkins.
-All fields should contain a non-null value (empty string or 0 depending on the type).
+All defined fields should contain a non-null value (empty / 0 / etc. depending on type).
 Set doesn't happen if list is empty.
 
 Mandatory fields (cannot be empty):
@@ -203,6 +207,13 @@ Supported `launch_method` : `type` and extra fields needed for it:
 
 Supported `availability` : `type` and extra fields needed for it:
 * `always`
+* `schedule`
+    * `startup_schedule` : string
+    * `scheduled_uptime` : integer
+    * `keep_up_when_active` : boolean
+* `demand`
+    * `in_demand_delay` : integer
+    * `idle_delay` : integer
 
 Example Playbook
 ----------------

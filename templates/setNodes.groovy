@@ -2,6 +2,8 @@ import jenkins.model.Jenkins
 
 import hudson.model.Node
 import hudson.slaves.DumbSlave
+import hudson.slaves.NodeProperty
+import hudson.slaves.EnvironmentVariablesNodeProperty
 
 List<Node> nodes = []
 DumbSlave slave
@@ -9,7 +11,7 @@ DumbSlave slave
     {% if node.name != '' and node.remote_root_directory != ''
         and node.usage|upper in ['NORMAL', 'EXCLUSIVE']
         and node.launch_method.type in ['via_ssh', 'via_command_on_master'] 
-        and node.availability.type in ['always'] 
+        and node.availability.type in ['always', 'schedule', 'demand'] 
     %}
         slave = new DumbSlave(
             '{{ node.name }}',
@@ -40,8 +42,32 @@ DumbSlave slave
         slave.setMode(Node.Mode.{{ node.usage | upper }})
         {% if node.availability.type == 'always' %}
             slave.setRetentionStrategy(new hudson.slaves.RetentionStrategy.Always())
+        {% elif node.availability.type == 'schedule' %}
+            slave.setRetentionStrategy(new hudson.slaves.SimpleScheduledRetentionStrategy(
+                '{{ node.availability.startup_schedule }}',
+                {{ node.availability.scheduled_uptime }},
+                {{ node.availability.keep_up_when_active |bool|lower }}
+            ))
+        {% elif node.availability.type == 'demand' %}
+            slave.setRetentionStrategy(new hudson.slaves.RetentionStrategy.Demand(
+                {{ node.availability.in_demand_delay }},
+                {{ node.availability.idle_delay }}
+            ))
         {% endif %}
 
+        List<NodeProperty> nodeProperties = []
+
+        List<EnvironmentVariablesNodeProperty.Entry> envVars = []
+        {% if node.environment_variables is defined %}{% for env_var in node.environment_variables %}
+            envVars.add(new EnvironmentVariablesNodeProperty.Entry('{{ env_var.name }}', '{{ env_var.value }}'))
+        {% endfor %}{% endif %}
+        if (envVars) nodeProperties.add(new EnvironmentVariablesNodeProperty(envVars))
+
+        {% if node.disable_deferred_wipeout is defined and node.disable_deferred_wipeout %}
+            nodeProperties.add(new hudson.plugins.ws_cleanup.DisableDeferredWipeoutNodeProperty())
+        {% endif %}
+        
+        slave.setNodeProperties(nodeProperties)
         nodes.add(slave)
     {% endif %}
 {% endfor %}
