@@ -92,7 +92,7 @@ jenkins_config_global_pipeline_libraries: []
 #     scm_credentials_id: jenkins-ssh
 ```
 Global Pipeline Libraries to set in Jenkins settings.
-All fields should contain a non-null value (empty string or 0 depending on the type).
+All fields should contain a non-null value (empty string/list or 0 depending on the type).
 Set doesn't happen if list is empty.
 
 Mandatory fields (cannot be empty):
@@ -114,7 +114,7 @@ jenkins_config_email_notification: null
 #   charset: UTF-8
 ```
 E-mail Notification values to set in Jenkins settings.
-All fields should contain a non-null value (empty string or 0 depending on the type).
+All fields should contain a non-null value (empty string/list or 0 depending on the type).
 Set doesn't happen, if `jenkins_config_email_notification.smtp_server is undefined`.
 
 -------
@@ -129,7 +129,7 @@ jenkins_config_credentials: []
 #     description: Key added from Ansible
 ```
 Credentials to set in the Global scope.
-All fields should contain a non-null value (empty string or 0 depending on the type).
+All fields should contain a non-null value (empty string/list or 0 depending on the type).
 Set doesn't happen if list is empty.
 
 Mandatory fields (cannot be empty):
@@ -169,9 +169,12 @@ jenkins_config_nodes: []
 #         require_initial_manual_trust: true
 #     availability:
 #       type: always
+#     environment_variables: # optional definition
+#       - name: FOO
+#         value: bar
 ```
 Nodes to set in Jenkins.
-All fields should contain a non-null value (empty string or 0 depending on the type).
+All fields which are defined should contain a non-null value (empty string/list or 0 depending on the type).
 Set doesn't happen if list is empty.
 
 Mandatory fields (cannot be empty):

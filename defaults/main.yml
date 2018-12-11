@@ -72,3 +72,4 @@ jenkins_config_nodes: []
 #         type: non_verifying
 #     availability:
 #       type: always
+#     environment_variables: []

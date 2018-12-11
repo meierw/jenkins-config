@@ -2,6 +2,8 @@ import jenkins.model.Jenkins
 
 import hudson.model.Node
 import hudson.slaves.DumbSlave
+import hudson.slaves.NodeProperty
+import hudson.slaves.EnvironmentVariablesNodeProperty
 
 List<Node> nodes = []
 DumbSlave slave
@@ -53,6 +55,15 @@ DumbSlave slave
             ))
         {% endif %}
 
+        List<NodeProperty> nodeProperties = []
+
+        List<EnvironmentVariablesNodeProperty.Entry> envVars = []
+        {% if node.environment_variables is defined %}{% for env_var in node.environment_variables %}
+            envVars.add(new EnvironmentVariablesNodeProperty.Entry('{{ env_var.name }}', '{{ env_var.value }}'))
+        {% endfor %}{% endif %}
+        if (envVars) nodeProperties.add(new EnvironmentVariablesNodeProperty(envVars))
+        
+        slave.setNodeProperties(nodeProperties)
         nodes.add(slave)
     {% endif %}
 {% endfor %}
