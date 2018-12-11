@@ -62,6 +62,10 @@ DumbSlave slave
             envVars.add(new EnvironmentVariablesNodeProperty.Entry('{{ env_var.name }}', '{{ env_var.value }}'))
         {% endfor %}{% endif %}
         if (envVars) nodeProperties.add(new EnvironmentVariablesNodeProperty(envVars))
+
+        {% if node.disable_deferred_wipeout is defined and node.disable_deferred_wipeout %}
+            nodeProperties.add(new hudson.plugins.ws_cleanup.DisableDeferredWipeoutNodeProperty())
+        {% endif %}
         
         slave.setNodeProperties(nodeProperties)
         nodes.add(slave)
