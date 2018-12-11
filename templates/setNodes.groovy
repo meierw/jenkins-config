@@ -9,7 +9,7 @@ DumbSlave slave
     {% if node.name != '' and node.remote_root_directory != ''
         and node.usage|upper in ['NORMAL', 'EXCLUSIVE']
         and node.launch_method.type in ['via_ssh', 'via_command_on_master'] 
-        and node.availability.type in ['always'] 
+        and node.availability.type in ['always', 'schedule', 'demand'] 
     %}
         slave = new DumbSlave(
             '{{ node.name }}',
@@ -40,6 +40,17 @@ DumbSlave slave
         slave.setMode(Node.Mode.{{ node.usage | upper }})
         {% if node.availability.type == 'always' %}
             slave.setRetentionStrategy(new hudson.slaves.RetentionStrategy.Always())
+        {% elif node.availability.type == 'schedule' %}
+            slave.setRetentionStrategy(new hudson.slaves.SimpleScheduledRetentionStrategy(
+                '{{ node.availability.startup_schedule }}',
+                {{ node.availability.scheduled_uptime }},
+                {{ node.availability.keep_up_when_active |bool|lower }}
+            ))
+        {% elif node.availability.type == 'demand' %}
+            slave.setRetentionStrategy(new hudson.slaves.RetentionStrategy.Demand(
+                {{ node.availability.in_demand_delay }},
+                {{ node.availability.idle_delay }}
+            ))
         {% endif %}
 
         nodes.add(slave)

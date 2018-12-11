@@ -149,7 +149,7 @@ Supported `kind` and extra fields needed for it:
     * `passphrase` : string
     * `description` : string
 
----
+-------
 ```yaml
 jenkins_config_nodes: []
 # jenkins_config_nodes:
@@ -203,6 +203,13 @@ Supported `launch_method` : `type` and extra fields needed for it:
 
 Supported `availability` : `type` and extra fields needed for it:
 * `always`
+* `schedule`
+    * `startup_schedule` : string
+    * `scheduled_uptime` : integer
+    * `keep_up_when_active` : boolean
+* `demand`
+    * `in_demand_delay` : integer
+    * `idle_delay` : integer
 
 Example Playbook
 ----------------
