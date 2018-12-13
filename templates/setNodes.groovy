@@ -7,6 +7,8 @@ import hudson.slaves.EnvironmentVariablesNodeProperty
 
 List<Node> nodes = []
 DumbSlave slave
+List<NodeProperty> nodeProperties
+List<EnvironmentVariablesNodeProperty.Entry> envVars
 {% for node in jenkins_config_nodes %}
     {% if node.name != '' and node.remote_root_directory != ''
         and node.usage|upper in ['NORMAL', 'EXCLUSIVE']
@@ -55,9 +57,9 @@ DumbSlave slave
             ))
         {% endif %}
 
-        List<NodeProperty> nodeProperties = []
+        nodeProperties = []
 
-        List<EnvironmentVariablesNodeProperty.Entry> envVars = []
+        envVars = []
         {% if node.environment_variables is defined %}{% for env_var in node.environment_variables %}
             envVars.add(new EnvironmentVariablesNodeProperty.Entry('{{ env_var.name }}', '{{ env_var.value }}'))
         {% endfor %}{% endif %}
