@@ -32,8 +32,8 @@
     user: "{{ jenkins_config_user }}"
     password: "{{ jenkins_config_password }}"
     script: "{{ lookup('template', 'templates/setSimpleThemeCssUrl.groovy') }}"
-  when: 
-    - jenkins_config_simple_theme_css_url is defined 
+  when:
+    - jenkins_config_simple_theme_css_url is defined
     - jenkins_config_simple_theme_css_url|length > 0
 
 - name: set jenkins url
@@ -42,17 +42,17 @@
     user: "{{ jenkins_config_user }}"
     password: "{{ jenkins_config_password }}"
     script: "{{ lookup('template', 'templates/setJenkinsUrl.groovy') }}"
-  when: 
-    - jenkins_config_jenkins_url is defined 
+  when:
+    - jenkins_config_jenkins_url is defined
     - jenkins_config_jenkins_url|length > 0
-  
+
 - name: set jenkins system admin e-mail address
   jenkins_script:
     url: "{{ jenkins_config_url }}"
     user: "{{ jenkins_config_user }}"
     password: "{{ jenkins_config_password }}"
     script: "{{ lookup('template', 'templates/setSystemAdminEmail.groovy') }}"
-  when: 
+  when:
     - jenkins_config_system_admin_email is defined
     - jenkins_config_system_admin_email|length > 0
 
@@ -65,7 +65,7 @@
   when:
     - jenkins_config_global_pipeline_libraries is defined
     - jenkins_config_global_pipeline_libraries|length > 0
-  
+
 - name: set jenkins e-mail notification
   jenkins_script:
     url: "{{ jenkins_config_url }}"
