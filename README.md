@@ -126,8 +126,8 @@ jenkins_config_credentials: []
 #   - kind: ssh_username_with_private_key
 #     id: jenkins-ssh
 #     username: jenkins
-#     key_value: "{{ secret_key }}"
-#     key_passphrase: ''
+#     private_key: "{{ secret_key }}"
+#     passphrase: ''
 #     description: Key added from Ansible
 ```
 Credentials to set in the Global scope.

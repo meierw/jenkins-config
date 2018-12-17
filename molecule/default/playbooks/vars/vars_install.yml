@@ -40,7 +40,7 @@ jenkins_config_credentials:
   - kind: ssh_username_with_private_key
     id: jenkins-ssh
     username: jenkins
-    key_value: |
+    private_key: |
       -----BEGIN RSA PRIVATE KEY-----
       MIIEpQIBAAKCAQEAvXS3nmOdxNaZURVTZFeETkuKm1VCOTWnq44iLW4vFPNUCkdF
       vM6Qp46LOBms1Z+a5jT6iKMBS/1jnnifbPR6b5etS2OX61J/DE3NvM6mpSpI9PTY
@@ -68,7 +68,7 @@ jenkins_config_credentials:
       Qp60RgNAIhGX/WPk0FYA2oBZtSrFU9P0tKQpSv8+SULP/65EUB3eM4ro+RlwmsvU
       +9zg+eBwUyfxgV0YiSUILHJKHrU+4nEY6baKKzf0iSVzBFDFB8D4F/M=
       -----END RSA PRIVATE KEY-----
-    key_passphrase: ''
+    passphrase: ''
     description: Key added from Ansible
   - kind: username_with_password
     id: jenkins-pass
