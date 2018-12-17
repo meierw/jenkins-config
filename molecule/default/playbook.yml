@@ -24,7 +24,7 @@
       changed_when: false
 
     - name: wait for jenkins to start up before proceeding
-      command: "curl -D - --silent --max-time 5 {{ jenkins_job_dsl_url }}/cli/"
+      command: "curl -D - --silent --max-time 5 http://localhost:8080/cli/"
       args:
         warn: false
       register: result
@@ -37,4 +37,4 @@
       check_mode: false
 
   roles:
-    - role: meierw.jenkins_config
+    - role: "{{ lookup('env', 'ROLE_NAME') }}"

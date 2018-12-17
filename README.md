@@ -1,6 +1,8 @@
 jenkins_config
 ==============
 
+[![Build Status](https://travis-ci.com/meierw/jenkins-config.svg?branch=master)](https://travis-ci.com/meierw/jenkins-config)
+
 Ansible role which manages various options/configurations in Jenkins.
 
 Requirements
