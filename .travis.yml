@@ -7,6 +7,9 @@ env:
   global:
     - ROLE_NAME: meierw.jenkins_config
     - JENKINS_TEST_SCRIPT_DIR: /usr/share/jenkins/ref/test_scripts
+  matrix:
+    - CONVERGE: skip
+    # - CONVERGE: install
 
 install:
   - pip install molecule docker

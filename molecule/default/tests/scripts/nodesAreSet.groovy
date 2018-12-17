@@ -1,0 +1,1 @@
+print Jenkins.get().getNodes() ? true : false

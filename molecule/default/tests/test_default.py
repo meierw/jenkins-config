@@ -7,8 +7,16 @@ testinfra_hosts = testinfra.utils.ansible_runner.AnsibleRunner(
 
 
 def test_jenkins(host):
-    output = host.check_output(get_script_curl('hello.groovy'))
-    assert output == 'hello world'
+    output_switch = {
+        'install': 'true',
+        'skip': 'false'
+    }
+    desired_output = output_switch.get(os.environ['CONVERGE'], 'false')
+
+    script_dir = os.path.dirname(os.path.realpath(__file__)) + '/scripts'
+    for filename in os.listdir(script_dir):
+        output = host.check_output(get_script_curl(filename))
+        assert output == desired_output
 
 
 def get_script_curl(script_file):
