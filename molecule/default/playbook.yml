@@ -1,0 +1,40 @@
+---
+- name: Converge
+  hosts: all
+
+  pre_tasks:
+    - name: create dir for test scripts
+      file:
+        path: "{{ lookup('env', 'JENKINS_TEST_SCRIPT_DIR') }}"
+        state: directory
+        owner: jenkins
+        group: jenkins
+
+    - name: copy test scripts
+      copy:
+        src: "{{ item }}"
+        dest: "{{ lookup('env', 'JENKINS_TEST_SCRIPT_DIR') }}/"
+        owner: jenkins
+        group: jenkins
+      with_fileglob:
+        - tests/scripts/*
+
+    - name: start jenkins as background process
+      shell: nohup /usr/local/bin/jenkins.sh &
+      changed_when: false
+
+    - name: wait for jenkins to start up before proceeding
+      command: "curl -D - --silent --max-time 5 {{ jenkins_job_dsl_url }}/cli/"
+      args:
+        warn: false
+      register: result
+      until:
+        - (result.stdout.find('403 Forbidden') != -1) or (result.stdout.find('200 OK') != -1)
+        - (result.stdout.find('Please wait while') == -1)
+      retries: 60
+      delay: 5
+      changed_when: false
+      check_mode: false
+
+  roles:
+    - role: meierw.jenkins_config
