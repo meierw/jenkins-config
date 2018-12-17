@@ -13,7 +13,7 @@ provisioner:
   lint:
     name: ansible-lint
   playbooks:
-    converge: converge_${CONVERGE:-skip}.yml
+    converge: playbooks/converge_${CONVERGE:-skip}.yml
 scenario:
   name: default
   test_sequence:

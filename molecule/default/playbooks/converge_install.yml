@@ -2,6 +2,9 @@
 - name: Converge
   hosts: all
 
+  vars_files:
+    - "vars/vars_{{ lookup('env', 'CONVERGE') }}.yml"
+
   pre_tasks:
     - name: create dir for test scripts
       file:
@@ -17,7 +20,7 @@
         owner: jenkins
         group: jenkins
       with_fileglob:
-        - tests/scripts/*
+        - ../tests/scripts/*
 
     - name: start jenkins as background process
       shell: nohup /usr/local/bin/jenkins.sh &

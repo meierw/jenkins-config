@@ -17,7 +17,7 @@
         owner: jenkins
         group: jenkins
       with_fileglob:
-        - tests/scripts/*
+        - ../tests/scripts/*
 
     - name: start jenkins as background process
       shell: nohup /usr/local/bin/jenkins.sh &
