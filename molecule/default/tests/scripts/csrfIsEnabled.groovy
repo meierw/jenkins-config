@@ -1,1 +1,0 @@
-print Jenkins.get().getCrumbIssuer() ? true : false

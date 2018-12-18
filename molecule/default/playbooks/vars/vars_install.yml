@@ -10,7 +10,7 @@ jenkins_config_pipeline_durability: PERFORMANCE_OPTIMIZED
 jenkins_config_simple_theme_css_url: test.example.com
 
 jenkins_config_jenkins_url: test.example.com
-jenkins_config_system_admin_email: test@admin.com
+jenkins_config_system_admin_email: admin@example.com
 
 jenkins_config_global_pipeline_libraries:
   - name: global-pipeline-library

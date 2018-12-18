@@ -1,1 +1,1 @@
-print ( ! JenkinsLocationConfiguration.get().getAdminAddress().contains('not configured') )
+print ! JenkinsLocationConfiguration.get().getAdminAddress().contains('not configured')
