@@ -1,0 +1,24 @@
+---
+language: python
+services:
+  - docker
+
+env:
+  global:
+    - ROLE_NAME: meierw.jenkins_config
+    - JENKINS_TEST_SCRIPT_DIR: /usr/share/jenkins/ref/test_scripts
+  matrix:
+    - CONVERGE: skip
+    - CONVERGE: install
+
+install:
+  - pip install molecule docker
+
+before_script:
+  # use ansible-galaxy role name for directory
+  - cd ../
+  - mv $TRAVIS_BUILD_DIR $ROLE_NAME
+  - cd $ROLE_NAME
+
+script:
+  - molecule test

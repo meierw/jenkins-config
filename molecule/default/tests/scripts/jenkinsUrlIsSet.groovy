@@ -1,0 +1,1 @@
+print JenkinsLocationConfiguration.get().getUrl() ? true : false

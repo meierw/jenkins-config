@@ -1,0 +1,1 @@
+print Jenkins.get().getDescriptor(hudson.tasks.Mailer).getSmtpServer() ? true : false

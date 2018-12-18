@@ -1,0 +1,5 @@
+FROM {{ item.image }}
+
+USER root
+RUN apk update && apk add --no-cache python sudo bash ca-certificates
+USER jenkins

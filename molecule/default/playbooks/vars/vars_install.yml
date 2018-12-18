@@ -1,0 +1,111 @@
+---
+jenkins_config_global_environment_variables:
+  - name: FOO
+    value: bar
+  - name: TOKEN
+    value: xxxyyyzzz
+
+jenkins_config_pipeline_durability: PERFORMANCE_OPTIMIZED
+
+jenkins_config_simple_theme_css_url: test.example.com
+
+jenkins_config_jenkins_url: test.example.com
+jenkins_config_system_admin_email: admin@example.com
+
+jenkins_config_global_pipeline_libraries:
+  - name: global-pipeline-library
+    default_version: master
+    load_implicitly: false
+    allow_default_version_override: true
+    scm_git_path: git@github.com:example/global-pipeline-library.git
+    scm_credentials_id: jenkins-ssh
+  - name: global-pipeline-library-2
+    default_version: master
+    load_implicitly: true
+    allow_default_version_override: false
+    scm_git_path: git@github.com:example/global-pipeline-library-2.git
+    scm_credentials_id: jenkins-ssh
+
+jenkins_config_email_notification:
+  smtp_server: smtp.gmail.com
+  default_user_email_suffix: '@example.com'
+  smtp_auth_username: example
+  smtp_auth_password: totally_legit
+  use_ssl: false
+  smtp_port: 465
+  reply_to_address: ''
+  charset: UTF-8
+
+jenkins_config_credentials:
+  - kind: ssh_username_with_private_key
+    id: jenkins-ssh
+    username: jenkins
+    private_key: |
+      -----BEGIN RSA PRIVATE KEY-----
+      MIIEpQIBAAKCAQEAvXS3nmOdxNaZURVTZFeETkuKm1VCOTWnq44iLW4vFPNUCkdF
+      vM6Qp46LOBms1Z+a5jT6iKMBS/1jnnifbPR6b5etS2OX61J/DE3NvM6mpSpI9PTY
+      MpPZlyEifIpSkMIEvL9Mon+geGMn2rLBqZGawFKBhgGofNi1nY89ZdpQjCNS7C54
+      9l1UixkjU8td9DqeAVHHYFCAYtz/+Y1YFIPl+38EyF0CpkBKz/6PU660ngMMk25k
+      6vrc4LOoJcLvkLBV4hikC4EZqKoNftvVFSV1DG75LaMsdg6EniDJNqi9YcTpOXuT
+      n2Cbw7xzIWjH6/qi2axA7zr9UazK0xSGV0kVtQIDAQABAoIBAAKPr2POyPU+SXhV
+      J3l1zW4Zi1gqQOjxFsE0/LVMhgpsd7hj2keBK2d4f91US4ffzoJKORDb00qptE0S
+      KGWasIUNseQRBp7B0MHj02I4EPyuo6ncHYghg5GNex/f5tnaJaI/m9OekhbOkF1e
+      iUu3kjYDZ4jeQN7fNyVYKGZWGzypv6CD8uvU0ufqeIoQYIIlLhnIpzO+neYN8B6D
+      /5Vh26GJGjd9bwhxA7ibQyhaRmajTRIJIHunDXiHw3/QVbLsu22dEFPnnHCK1EQp
+      qjQilmfaKbjVPBG1Kldi29IR7OsJ0g+StL+Rq6JatpTxqE7rhWMU7RuTg6frncT2
+      tffb54ECgYEA6L7xhA4QwywJ9XpZVnrfkFGU6fbdJ+VS+hKYmgGeo8/xX0+tFwtm
+      QUY0BcMLv0Pe6jRTTv2ad38eFFgzFuh3BN5obExULCtPR2QaUbQXhwZPAqySDE0K
+      35JmEubeCa3dYrX6GVVi1/kzxeHedmwLWttQN8e/f3817FxOhKHLYVECgYEA0GKG
+      go0RaUizvioVZ0A8Wtf4rek2xYPxab54eFRbbkOcviYmz+ceLg3XUZ8/WHu+gxGc
+      9VdDLXKQXi6xgQia4Dpx0uqItfgTdhIbjmqmVVZJHYMaHGuw/nUiYaxTX6HG2L9i
+      Le381tqdNbn7OHvwWSfgUKp7Iq5ErukN+OBKdSUCgYEA0J1FcS4CTE4O5x6xMNiV
+      xo+5QDRrajUcuNUuPuwwu3fJS7ro1Hz9PIimXHvE7bzx807PVT/u0ij4VxfvQxs+
+      gviu9FM+JxDy0HSjOpSHehlnfGgdyDTOCDL6lvqkDlzu0Gl4MHjeTeMqSrX3ZoHV
+      c6ycLEM4HBlzxdW+8xbqauECgYEAuvq9ASV9KwBOL+LpA5Vy0nyZqcrqF36VvrFm
+      vWnMBHtsiH4JM2GJBf/rZVTD7SxTvJ2wPcBICd6TRb8WDNbgyTQH8B37/3OSWs5S
+      pY5yo33h6zY41qmWziviZsvOn6+0kcXgXZ/+z/anO48eqQckmYsbTqY6CNtfy6ZY
+      oCj5BnUCgYEAxB1SlTx+4m84zAdACZC37Cful3WbGkm8ALC2RcGH28GlR4dA/AKA
+      Qp60RgNAIhGX/WPk0FYA2oBZtSrFU9P0tKQpSv8+SULP/65EUB3eM4ro+RlwmsvU
+      +9zg+eBwUyfxgV0YiSUILHJKHrU+4nEY6baKKzf0iSVzBFDFB8D4F/M=
+      -----END RSA PRIVATE KEY-----
+    passphrase: ''
+    description: Key added from Ansible
+  - kind: username_with_password
+    id: jenkins-pass
+    username: jenkins
+    password: jenkins
+    description: User and pass added from Ansble
+
+jenkins_config_nodes:
+  - name: slave0
+    description: Node added from Ansible
+    num_of_executors: 3
+    remote_root_directory: /var/lib/jenkins
+    labels: labels separated by spaces
+    usage: exclusive
+    launch_method:
+      type: via_ssh
+      host: slave0.example.com
+      port: 22
+      credentials_id: jenkins-ssh
+      verification_strategy:
+        type: non_verifying
+    availability:
+      type: always
+    environment_variables:
+      - name: FOO
+        value: bar
+    disable_deferred_wipeout: true
+  - name: slave1
+    description: Node added from Ansible
+    num_of_executors: 1
+    remote_root_directory: /var/lib/jenkins
+    labels: ''
+    usage: normal
+    launch_method:
+      type: via_command
+      command: echo "hello world"
+    availability:
+      type: demand
+      in_demand_delay: 10
+      idle_delay: 10

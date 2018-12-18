@@ -1,6 +1,8 @@
 jenkins_config
 ==============
 
+[![Build Status](https://travis-ci.com/meierw/jenkins-config.svg?branch=master)](https://travis-ci.com/meierw/jenkins-config)
+
 Ansible role which manages various options/configurations in Jenkins.
 
 Requirements
@@ -124,8 +126,8 @@ jenkins_config_credentials: []
 #   - kind: ssh_username_with_private_key
 #     id: jenkins-ssh
 #     username: jenkins
-#     key_value: "{{ secret_key }}"
-#     key_passphrase: ''
+#     private_key: "{{ secret_key }}"
+#     passphrase: ''
 #     description: Key added from Ansible
 ```
 Credentials to set in the Global scope.
