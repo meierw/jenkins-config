@@ -7,7 +7,7 @@ List<LibraryConfiguration> libConfigs = []
 
 LibraryConfiguration libConfig = null
 {% for library in jenkins_config_global_pipeline_libraries %}
-    {% if library.name != '' and library.scm_git_path != '' and library.scm_credentials_id != '' %}
+    {% if library.name != '' and library.scm_git_path != '' %}
         libConfig = new LibraryConfiguration(
                 '{{ library.name }}',
                 new SCMSourceRetriever(new GitSCMSource(
